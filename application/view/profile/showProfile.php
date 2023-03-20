@@ -18,6 +18,7 @@
                         <td>Username</td>
                         <td>User's email</td>
                         <td>Activated ?</td>
+                        <td>Role</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,7 @@
                             <td><?= $this->user->user_name; ?></td>
                             <td><?= $this->user->user_email; ?></td>
                             <td><?= ($this->user->user_active == 0 ? 'No' : 'Yes'); ?></td>
+                            <td><?= ($this->user->user_account_type);?></td>
                         </tr>
                     </tbody>
                 </table>

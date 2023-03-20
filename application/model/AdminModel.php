@@ -40,7 +40,7 @@ class AdminModel
 
         // if suspension or deletion should happen, then also kick user out of the application instantly by resetting
         // the user's session :)
-        if ($suspensionTime != null OR $delete = 1) {
+        if ($suspensionTime != null or $delete = 1) {
             self::resetUserSession($userId);
         }
     }
@@ -59,9 +59,9 @@ class AdminModel
 
         $query = $database->prepare("UPDATE users SET user_suspension_timestamp = :user_suspension_timestamp, user_deleted = :user_deleted  WHERE user_id = :user_id LIMIT 1");
         $query->execute(array(
-                ':user_suspension_timestamp' => $suspensionTime,
-                ':user_deleted' => $delete,
-                ':user_id' => $userId
+            ':user_suspension_timestamp' => $suspensionTime,
+            ':user_deleted' => $delete,
+            ':user_id' => $userId
         ));
 
         if ($query->rowCount() == 1) {
@@ -83,13 +83,37 @@ class AdminModel
 
         $query = $database->prepare("UPDATE users SET session_id = :session_id  WHERE user_id = :user_id LIMIT 1");
         $query->execute(array(
-                ':session_id' => null,
-                ':user_id' => $userId
+            ':session_id' => null,
+            ':user_id' => $userId
         ));
 
         if ($query->rowCount() == 1) {
             Session::add('feedback_positive', Text::get('FEEDBACK_ACCOUNT_USER_SUCCESSFULLY_KICKED'));
             return true;
         }
+    }
+
+
+    /**
+     * Updates the user_account type of a specific user
+     * @param mixed $user_id the user id
+     * @param mixed $user_account_type the account type id
+     * @return void
+     */
+    public static function setAccountType($user_id, $user_account_type)
+    {
+        $database = DatabaseFactory::getFactory()->getConnection();
+        $sql = "UPDATE users 
+            SET user_account_type = :user_account_type 
+            WHERE user_id = :user_id";
+        $query = $database->prepare($sql);
+        $res = $query->execute(
+            array(
+                ':user_account_type' => $user_account_type,
+                ':user_id' => $user_id
+            )
+        );
+
+        var_dump($res);
     }
 }

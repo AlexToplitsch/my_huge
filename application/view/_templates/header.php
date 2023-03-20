@@ -9,16 +9,21 @@
     <link rel="icon" href="data:;base64,=">
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo Config::get('URL'); ?>css/style.css" />
+
+    <script type="text/javascript" charset="utf8" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.css">
+    <script type="text/javascript">
+        console.log("Test");
+        $(document).ready(function() {
+            $('#userTable').DataTable();
+        });
+    </script>
 </head>
 
 <body>
-    <?php var_dump(Session::get('user_account_type')) ?>
     <!-- wrapper, to center website -->
     <div class="wrapper">
-
-        <!-- logo -->
-        <div class="logo"></div>
-
         <!-- navigation -->
         <ul class="navigation">
             <li <?php if (View::checkForActiveController($filename, "index")) {
