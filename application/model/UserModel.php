@@ -345,4 +345,41 @@ class UserModel
         // return one row (we only have one result or nothing)
         return $query->fetch();
     }
+
+    /**
+     * Checks if a user exists by the give user_id
+     * @param int $user_id The user's id
+     * @return boolean True if the user exists; otherwiser false
+     */
+    public static function userExistsById($user_id)
+    {
+        $database = DatabaseFactory::getFactory()->getConnection();
+
+        $sql = "SELECT user_id
+                FROM users WHERE user_id = :user_id;";
+        $query = $database->prepare($sql);
+        $query->execute(array(':user_id' => $user_id));
+
+        if ($query->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getUsernameById($user_id){
+        $database = DatabaseFactory::getFactory()->getConnection();
+
+        $sql = "SELECT user_name, user_id
+                  FROM users
+                 WHERE (user_id = :user_id)
+                 LIMIT 1";
+        $query = $database->prepare($sql);
+
+        // DEFAULT is the marker for "normal" accounts (that have a password etc.)
+        // There are other types of accounts that don't have passwords etc. (FACEBOOK)
+        $query->execute(array(':user_id' => $user_id));
+
+        // return one row (we only have one result or nothing)
+        return $query->fetch();
+    }
 }

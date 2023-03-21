@@ -18,5 +18,5 @@
         <td><input type="submit" name="submit" value="Submit"></td>
     </form>
 <?php } else { ?>
-    <?= ucwords($user->user_account_type) ?>
+    <td><?= ucwords($user->role_name) ?></td>
 <?php } ?>

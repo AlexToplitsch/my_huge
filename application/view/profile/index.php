@@ -22,8 +22,10 @@
                         <th>Activated ?</th>
                         <th>Link to user's profile</th>
                         <th>Role</th>
+                        <?php if (Session::get("user_account_type") == 7) { ?>
                         <th style="display: none;"></th>
                         <th>Submit</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>

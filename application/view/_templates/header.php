@@ -47,6 +47,11 @@
                     } ?>>
                     <a href="<?php echo Config::get('URL'); ?>note/index">My Notes</a>
                 </li>
+                <li <?php if (View::checkForActiveController($filename, "message")) {
+                        echo ' class="active" ';
+                    } ?>>
+                    <a href="<?php echo Config::get('URL'); ?>messenger/index">Messenger</a>
+                </li>
                 <?php if (Session::get('user_account_type') == 7) { ?>
                     <li <?php if (View::checkForActiveControllerAndAction($filename, "register/index")) {
                             echo ' class="active" ';
