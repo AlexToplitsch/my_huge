@@ -31,7 +31,10 @@
                                 </a>
                             </td>
                             <td>
-                                <div class="unread_messages" style="color: red;">
+                            <?php $style = array_key_exists($user->user_id, $this->unread_messages) ? 
+                                    "'background: red; color: white; border: 1px solid red; border-radius: 50%; height: 100%; width: 13px; text-align: center; font-size: 12px;'"
+                                    : "'height: 100%; width: 13px; text-align: center; font-size: 12px;'"?>
+                                <div class="unread_messages" style=<?= $style?>>
                                     <?php if (array_key_exists($user->user_id, $this->unread_messages)) {
                                         echo $this->unread_messages[$user->user_id];
                                     } else {
