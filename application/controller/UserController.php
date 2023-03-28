@@ -40,6 +40,10 @@ class UserController extends Controller
         $this->View->render('user/editUsername');
     }
 
+    public function test($user_name){
+        var_dump(UserModel::getUserDataByUserNameOrEmail($user_name));
+    }
+
     /**
      * Edit user name (perform the real action after form has been submitted)
      */

@@ -19,10 +19,7 @@ class UserModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT user_id, user_name, user_email, user_active, 
-            user_has_avatar, user_deleted, user_account_type, user_roles.role_name 
-            FROM users
-            JOIN user_roles ON users.user_account_type = user_roles.id;";
+        $sql = "CALL GetPublicProfilesOfAllUsers";
         $query = $database->prepare($sql);
         $query->execute();
 
@@ -58,8 +55,7 @@ class UserModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT user_id, user_name, user_email, user_active, user_has_avatar, user_deleted
-                FROM users WHERE user_id = :user_id LIMIT 1";
+        $sql = "CALL GetPublicProfileOfUser(:user_id)";
         $query = $database->prepare($sql);
         $query->execute(array(':user_id' => $user_id));
 
@@ -92,9 +88,7 @@ class UserModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $query = $database->prepare("SELECT user_id, user_name, user_email FROM users
-                                     WHERE (user_name = :user_name_or_email OR user_email = :user_name_or_email)
-                                           AND user_provider_type = :provider_type LIMIT 1");
+        $query = $database->prepare("CALL GetUserDataByUserNameOrEmail(:user_name_or_email, :provider_type); ");
         $query->execute(array(':user_name_or_email' => $user_name_or_email, ':provider_type' => 'DEFAULT'));
 
         return $query->fetch();
