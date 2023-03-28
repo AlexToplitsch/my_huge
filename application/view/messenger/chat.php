@@ -2,13 +2,26 @@
     <h1>Chat with <?= $this->user->user_name ?></h1>
     <div class="box">
         <section class="discussion">
-            <?php foreach ($this->messages as $msg) { ?>
-                <div class=<?php if ($msg->from == Session::get('user_id')) {
-                                echo "'bubble sender first'";
+            <?php var_dump($this->messages);
+            for ($i = 0; $i < count($this->messages); $i++) { ?>
+                <div class=<?php if ($this->messages[$i]->from == Session::get('user_id')) {
+                                if ($i == 0 || $this->messages[$i]->from != $this->messages[$i - 1]->from) {
+                                    echo "'bubble sender first'";
+                                } else if (($i == count($this->messages) - 1) || $this->messages[$i]->from != $this->messages[$i + 1]->from) {
+                                    echo "'bubble sender last'";
+                                } else {
+                                    echo "'bubble sender middle";
+                                }
                             } else {
-                                echo "'bubble recipient first'";
+                                if ($i == 0 || $this->messages[$i]->from != $this->messages[$i - 1]->from) {
+                                    echo "'bubble recipient first'";
+                                } else if (($i == count($this->messages) - 1) || $this->messages[$i]->from != $this->messages[$i + 1]->from) {
+                                    echo "'bubble recipient last'";
+                                } else {
+                                    echo "'bubble recipient middle";
+                                }
                             } ?>>
-                    <?= $msg->content ?>
+                    <?= $this->messages[$i]->content ?>
                 </div>
             <?php } ?>
         </section>
@@ -16,7 +29,7 @@
         <hr>
         <form action="<?= Config::get("URL"); ?>/messenger/sendMessage" method="post">
             <input autofocus style="width:70%;" type="text" placeholder="Type your message..." name="content" />
-            <input style="display:none;"type="text" value=<?=$this->user->user_id?> name="destination_id" />
+            <input style="display:none;" type="text" value=<?= $this->user->user_id ?> name="destination_id" />
             <input type="submit" value="Send" />
         </form>
     </div>
