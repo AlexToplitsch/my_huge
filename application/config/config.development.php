@@ -46,6 +46,7 @@ return array(
      */
     'PATH_AVATARS' => realpath(dirname(__FILE__).'/../../') . '/public/avatars/',
     'PATH_AVATARS_PUBLIC' => 'avatars/',
+    'PATH_UPLOADS' => realpath(dirname(__FILE__).'/../../') . '/uploads/',
     /**
      * Configuration for: Default controller and action
      */
@@ -65,7 +66,7 @@ return array(
     'DB_HOST' => '127.0.0.1',
     'DB_NAME' => 'huge',
     'DB_USER' => 'root',
-    'DB_PASS' => '',
+    'DB_PASS' => '@UbuntuDatenbankLogin1!',
     'DB_PORT' => '3306',
     'DB_CHARSET' => 'utf8',
     /**

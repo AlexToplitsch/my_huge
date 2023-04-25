@@ -2,8 +2,7 @@
     <h1>Chat with <?= $this->user->user_name ?></h1>
     <div class="box">
         <section class="discussion">
-            <?php var_dump($this->messages);
-            for ($i = 0; $i < count($this->messages); $i++) { ?>
+            <?php for ($i = 0; $i < count($this->messages); $i++) { ?>
                 <div class=<?php if ($this->messages[$i]->from == Session::get('user_id')) {
                                 if ($i == 0 || $this->messages[$i]->from != $this->messages[$i - 1]->from) {
                                     echo "'bubble sender first'";

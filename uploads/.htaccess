@@ -1,0 +1,8 @@
+RewriteEngine on
+
+SetEnvIf Referer 116.203.181.175 internal
+<Files *>
+    order Deny,Allow
+    Deny from all
+    Allow from env=internal
+</Files>
